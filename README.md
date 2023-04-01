@@ -47,11 +47,60 @@ type A (IP address) query.
 • name (required) is the domain name to query for.
 
 For example to query for www.mcgill.ca IP address using the McGill DNS server, enter:
+
 java DnsClient @132.206.85.18 www.mcgill.ca
 
 or to query for the mcgill.ca mail server using Google’s public DNS server with a timeout of 10seconds and at most 2 retries, enter:
+
 java DnsClient –t 10 –r 2 –mx @8.8.8.8 mcgill.ca
 
+## Output Behaviour
+Your program should print output to STDOUT using the following standard format. The first lines should summarize the query that has been sent:
 
+DnsClient sending request for [name] Server: [server IP address]
+
+Request type: [A | MX | NS]
+
+Where the fields in square brackets are replaced by appropriate values. Then, subsequent lines should summarize the performance and content of the response. When a valid response is received, the first line should read:
+
+Response received after [time] seconds ([num-retries] retries)
+
+If the response contains records in the Answer section then print:
+
+***Answer Section ([num-answers] records)***
+
+Then, if the response contains A (IP address) records, each should be printed on a line of the form:
+
+IP <tab> [ip address] <tab> [seconds can cache] <tab> [auth | nonauth]
+  
+Where <tab> is replaced by a tab character. Similarly, if it receives CNAME, MX, or NS records, they should be printed on lines of the form:
+  
+CNAME <tab> [alias] <tab> [seconds can cache] <tab> [auth | nonauth]
+  
+MX <tab> [alias] <tab> [pref] <tab> [seconds can cache] <tab> [auth | nonauth]
+  
+NS <tab> [alias] <tab> [seconds can cache] <tab> [auth | nonauth]
+  
+If the response contains records in the Additional section then also print:
+  
+***Additional Section ([num-additional] records)***
+  
+along with appropriate lines for each additional record that matches one of the types A, CNAME, MX, or NS. You can ignore any records in the Authority section for this lab.
+If no record is found then a line should simply be printed saying
+  
+NOTFOUND
+  
+If any errors occur during execution then lines should be printed saying
+  
+ERROR <tab> [description of error]
+  
+Be specific with your error messages. Some example of errors your DNS client may output are:
+
+ERROR <tab> Incorrect input syntax: [description of specific problem] ERROR <tab>
+  
+Maximum number of retries [max-retries] exceeded
+  
+  
+ERROR <tab> Unexpected response [description of unexpected response content]
 
 
