@@ -9,14 +9,21 @@ Sockets are the programming mechanism used to implement network applications. If
 
 ## Project Description
 Write a program using Python sockets that:
+
 • Is invoked from the command line (STDIN);
+
 • Sends a query to the server for the given domain name using a UDP socket;
+
 • Waits for the response to be returned from the server;
+
 • Interprets the response and outputs the result to terminal display (STDOUT).
 
 Your DNS client should be capable of performing the following actions:
+
 • Send queries for A (IP addresses), MX (mail server), and NS (name server) records;
+
 • Interpret responses that contain A records (iPad dresses) and CNAME records (Unaliases);
+
 • Retransmit queries that are lost.
 
 Your client must also handle errors gracefully. In particular, if the response message does not conform to the DNS specification, if it contains fields or entries that cannot be interpreted, or if the client receives a response that does not match the query it sent, then an appropriate error message should be printed to the screen indicating what was unexpected or what went wrong.
